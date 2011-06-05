@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="cuboid2worldguard" default="all">
+  
+  
+  <property file="cuboid2worldguard.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.zip"/>
+    <include name="*.war"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.6" value="${jdk.home.1.6}/bin"/>
+  <path id="jdk.classpath.1.6">
+    <fileset dir="${jdk.home.1.6}">
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/alt-string.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/alt-rt.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.6}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.6}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.6"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.yaml.classpath">
+    <pathelement location="${basedir}/lib/snakeyaml-1.8.jar"/>
+  </path>
+  
+  
+  <!-- Global Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm.jar"/>
+    <pathelement location="${javac2.home}/asm-commons.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module Cuboid2WorldGuard -->
+  
+  <dirname property="module.cuboid2worldguard.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.cuboid2worldguard" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.cuboid2worldguard" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.cuboid2worldguard" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.cuboid2worldguard" value="${compiler.args}"/>
+  
+  <property name="cuboid2worldguard.output.dir" value="${module.cuboid2worldguard.basedir}/out/production/Cuboid2WorldGuard"/>
+  <property name="cuboid2worldguard.testoutput.dir" value="${module.cuboid2worldguard.basedir}/out/test/Cuboid2WorldGuard"/>
+  
+  <path id="cuboid2worldguard.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="cuboid2worldguard.module.production.classpath">
+    <path refid="${module.jdk.classpath.cuboid2worldguard}"/>
+    <path refid="library.yaml.classpath"/>
+  </path>
+  
+  <path id="cuboid2worldguard.runtime.production.module.classpath">
+    <pathelement location="${cuboid2worldguard.output.dir}"/>
+    <path refid="library.yaml.classpath"/>
+  </path>
+  
+  <path id="cuboid2worldguard.module.classpath">
+    <path refid="${module.jdk.classpath.cuboid2worldguard}"/>
+    <pathelement location="${cuboid2worldguard.output.dir}"/>
+    <path refid="library.yaml.classpath"/>
+  </path>
+  
+  <path id="cuboid2worldguard.runtime.module.classpath">
+    <pathelement location="${cuboid2worldguard.testoutput.dir}"/>
+    <pathelement location="${cuboid2worldguard.output.dir}"/>
+    <path refid="library.yaml.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.cuboid2worldguard">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.cuboid2worldguard">
+    <patternset refid="excluded.from.module.cuboid2worldguard"/>
+  </patternset>
+  
+  <path id="cuboid2worldguard.module.sourcepath">
+    <dirset dir="${module.cuboid2worldguard.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.cuboid2worldguard" depends="compile.module.cuboid2worldguard.production,compile.module.cuboid2worldguard.tests" description="Compile module Cuboid2WorldGuard"/>
+  
+  <target name="compile.module.cuboid2worldguard.production" depends="register.custom.compilers" description="Compile module Cuboid2WorldGuard; production classes">
+    <mkdir dir="${cuboid2worldguard.output.dir}"/>
+    <javac2 destdir="${cuboid2worldguard.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.cuboid2worldguard}/javac">
+      <compilerarg line="${compiler.args.cuboid2worldguard}"/>
+      <bootclasspath refid="cuboid2worldguard.module.bootclasspath"/>
+      <classpath refid="cuboid2worldguard.module.production.classpath"/>
+      <src refid="cuboid2worldguard.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.cuboid2worldguard"/>
+    </javac2>
+    
+    <copy todir="${cuboid2worldguard.output.dir}">
+      <fileset dir="${module.cuboid2worldguard.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.cuboid2worldguard.tests" depends="register.custom.compilers,compile.module.cuboid2worldguard.production" description="compile module Cuboid2WorldGuard; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.cuboid2worldguard" description="cleanup module">
+    <delete dir="${cuboid2worldguard.output.dir}"/>
+    <delete dir="${cuboid2worldguard.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.cuboid2worldguard" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.cuboid2worldguard" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.cuboid2worldguard:jar" value="${basedir}/out/artifacts/Cuboid2WorldGuard_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.Cuboid2WorldGuard.jar" value="${artifacts.temp.dir}/Cuboid2WorldGuard.jar"/>
+  </target>
+  
+  <target name="artifact.cuboid2worldguard:jar" depends="init.artifacts, compile.module.cuboid2worldguard" description="Build &apos;Cuboid2WorldGuard:jar&apos; artifact">
+    <property name="artifact.temp.output.cuboid2worldguard:jar" value="${artifacts.temp.dir}/Cuboid2WorldGuard_jar"/>
+    <mkdir dir="${artifact.temp.output.cuboid2worldguard:jar}"/>
+    <jar destfile="${temp.jar.path.Cuboid2WorldGuard.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset file="${basedir}/src/META-INF/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${cuboid2worldguard.output.dir}"/>
+      <zipfileset src="${basedir}/lib/snakeyaml-1.8.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.Cuboid2WorldGuard.jar}" tofile="${artifact.temp.output.cuboid2worldguard:jar}/Cuboid2WorldGuard.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.cuboid2worldguard:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.cuboid2worldguard:jar}"/>
+    <copy todir="${artifact.output.cuboid2worldguard:jar}">
+      <fileset dir="${artifact.temp.output.cuboid2worldguard:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
