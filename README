@@ -1,0 +1,7 @@
+VERSION 0.8
+
+USAGE
+============
+
+Run JAR file in Canary directory. It produces file regions.yml in this directory. Move this file to the appropriate world configuration in plugin/WorldGuard/worlds/<name>.
+
